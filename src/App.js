@@ -48,11 +48,9 @@ function App() {
     };
 
     setCharacters((prevCharacters) => [...prevCharacters, newCharacter]);
-    console.log("character!", characters);
   };
 
   const handleSave = () => {
-    console.log("characters rn!", characters);
     saveCharacters(characters);
   };
 

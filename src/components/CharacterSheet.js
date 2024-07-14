@@ -9,7 +9,6 @@ const CharacterSheet = ({ character, updateCharacter }) => {
   };
 
   const handleSkillChange = (newSkills) => {
-    //console.log("Updating skills:", newSkills);
     updateCharacter(character.id, { skills: newSkills });
   };
 
