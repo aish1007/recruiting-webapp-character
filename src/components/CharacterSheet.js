@@ -4,6 +4,10 @@ import ClassSection from "./ClassSection";
 import SkillSection from "./SkillSection";
 
 const CharacterSheet = ({ character, updateCharacter }) => {
+  const handleAttributeChange = (attributes) => {
+    updateCharacter(character.id, { attributes });
+  };
+
   return (
     <Fragment>
       <div>
@@ -27,7 +31,10 @@ const CharacterSheet = ({ character, updateCharacter }) => {
           margin: 50,
         }}
       >
-        <AttributeSection attributes={character.attributes} />
+        <AttributeSection
+          attributes={character.attributes}
+          setAttributes={handleAttributeChange}
+        />
         <ClassSection attributes={character.attributes} />
         <SkillSection
           attributes={character.attributes}
