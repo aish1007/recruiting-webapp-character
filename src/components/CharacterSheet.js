@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import AttributeSection from "./AttributeSection";
 import ClassSection from "./ClassSection";
 import SkillSection from "./SkillSection";
@@ -6,6 +6,11 @@ import SkillSection from "./SkillSection";
 const CharacterSheet = ({ character, updateCharacter }) => {
   const handleAttributeChange = (attributes) => {
     updateCharacter(character.id, { attributes });
+  };
+
+  const handleSkillChange = (newSkills) => {
+    //console.log("Updating skills:", newSkills);
+    updateCharacter(character.id, { skills: newSkills });
   };
 
   return (
@@ -39,6 +44,7 @@ const CharacterSheet = ({ character, updateCharacter }) => {
         <SkillSection
           attributes={character.attributes}
           skills={character.skills}
+          setSkills={handleSkillChange}
         />
       </div>
     </Fragment>
