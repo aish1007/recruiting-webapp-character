@@ -1,10 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import { ATTRIBUTE_LIST, SKILL_LIST } from "./consts.js";
 import CharacterSheet from "./components/CharacterSheet";
+import { loadCharacters, saveCharacters } from "./services/characters.js";
 
 function App() {
   const [characters, setCharacters] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await loadCharacters();
+      if (response.status === 200) {
+        const { characters } = response.data.body;
+        setCharacters(characters);
+      }
+    }
+    fetchData();
+  }, []);
 
   const getSkills = () => {
     const skillList = {};
@@ -23,7 +35,6 @@ function App() {
       const newCharacters = prevCharacters.map((char) =>
         char.id === id ? { ...char, ...updatedFields } : char
       );
-      console.log("New characters state:", newCharacters);
       return newCharacters;
     });
   };
@@ -40,7 +51,10 @@ function App() {
     console.log("character!", characters);
   };
 
-  const handleSave = () => {};
+  const handleSave = () => {
+    console.log("characters rn!", characters);
+    saveCharacters(characters);
+  };
 
   return (
     <div className="App">
@@ -67,7 +81,7 @@ function App() {
               Add New Character
             </button>
             <button style={{ margin: 20 }} onClick={handleSave}>
-              Save Character
+              Save Character(s)
             </button>
           </div>
         </div>
