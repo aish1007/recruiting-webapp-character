@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import { ATTRIBUTE_LIST, SKILL_LIST } from "./consts.js";
+import CharacterSheet from "./components/CharacterSheet";
 
 function App() {
   const [characters, setCharacters] = useState([]);
@@ -15,6 +16,16 @@ function App() {
     const attributesList = {};
     ATTRIBUTE_LIST.forEach((attribute) => (attributesList[attribute] = 10));
     return attributesList;
+  };
+
+  const updateCharacter = (id, updatedFields) => {
+    setCharacters((prevCharacters) => {
+      const newCharacters = prevCharacters.map((char) =>
+        char.id === id ? { ...char, ...updatedFields } : char
+      );
+      console.log("New characters state:", newCharacters);
+      return newCharacters;
+    });
   };
 
   const addCharacter = () => {
@@ -38,6 +49,13 @@ function App() {
       </header>
       <section className="App-section">
         <div>
+          {characters.map((character) => (
+            <CharacterSheet
+              key={character.id}
+              character={character}
+              updateCharacter={updateCharacter}
+            />
+          ))}
           <div
             style={{
               display: "flex",
